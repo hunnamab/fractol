@@ -14,7 +14,7 @@
 
 int		key_control(int key, t_cntrl *cntrl)
 {
-	if (key == 53)
+	if (key == 0xff1b) //53 or 0xff1b
 	{
 		mlx_destroy_window(cntrl->mlx, cntrl->win);
 		exit(EXIT_SUCCESS);
