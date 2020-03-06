@@ -6,7 +6,7 @@
 #    By: hunnamab <hunnamab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/21 15:05:19 by hunnamab          #+#    #+#              #
-#    Updated: 2020/03/04 13:14:25 by hunnamab         ###   ########.fr        #
+#    Updated: 2020/03/06 12:57:06 by hunnamab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ $(LIBRARY):
 		@make -C libft/
 
 $(NAME): $(LIBRARY) $(OBJ)
-		@gcc $(OBJ) $(LIBRARY) -o $(NAME) -I $(HEADER) -lmlx -lX11 -lXext -lm -L.
+		@gcc $(OBJ) $(LIBRARY) -o $(NAME) -I $(HEADER) -lmlx -framework OpenGL -framework AppKit -L.
 
 clean:
 	@rm -f $(OBJ)
