@@ -6,7 +6,7 @@
 /*   By: hunnamab <hunnamab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:01:47 by hunnamab          #+#    #+#             */
-/*   Updated: 2020/03/06 17:44:15 by hunnamab         ###   ########.fr       */
+/*   Updated: 2020/03/06 18:20:32 by hunnamab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	julia(t_cntrl *cntrl)
 	double Z_im;
 	double Z_re2;
 	double Z_im2;
-    double Z_n;
-    double t;
+    //double Z_n;
+    //double t;
 
 	int iter = 150;
 
@@ -59,20 +59,27 @@ void	julia(t_cntrl *cntrl)
 				Z_re = Z_re2 - Z_im2 + (-0.74543);
 				i++;
 			}
-            if (i < iter)
+            /*if (i < iter)
             {
                 Z_n = sqrt(Z_re * Z_re + Z_im * Z_im);
                 t = iter + 1 - (log(2) / Z_n) / log(2);
                 int red = (sin(0.016 * t + 4) * 230 + 25);
                 int green = (sin(0.013 * t + 2) * 230 + 25);
                 int blue = (sin(0.01 * t + 1) * 230 + 25);
-                green = green >> 8;
-                red = red >> 16;
+                green = green << 8;
+                red = red << 16;
                 blue = blue & 255;
                 green = green & 130560;
                 red = red & 66846720;
-                cntrl->data[y * WID + x] = red | green | blue | 255;
-            }
+                cntrl->data[y * WID + x] = red | green | blue | (255 >> 24);
+            }*/
+            double t = (double)i / (double)iter;
+			int red = (int)(9 * (1 - t) * pow(t, 3) * 255);
+			int green = (int)(15 * pow((1 - t), 2) * pow(t, 2) * 255);
+            green <<= 8;
+            red <<= 16;
+			int blue = (int)(8.5 * pow((1 - t), 3) * t * 255);
+			cntrl->data[y * WID + x] = red | green | blue;
 			x++;
 			i = 0;
 		}
@@ -125,8 +132,10 @@ void	mandelbrot(t_cntrl *cntrl)
 			double t = (double)i / (double)iter;
 			int red = (int)(9 * (1 - t) * pow(t, 3) * 255);
 			int green = (int)(15 * pow((1 - t), 2) * pow(t, 2) * 255);
+            green <<= 8;
+            red <<= 16;
 			int blue = (int)(8.5 * pow((1 - t), 3) * t * 255);
-			cntrl->data[y * WID + x] = (red | green | blue) << 8;
+			cntrl->data[y * WID + x] = red | green | blue;
 			x++;
 			i = 0;
 		}
