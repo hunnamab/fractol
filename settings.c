@@ -6,7 +6,7 @@
 /*   By: hunnamab <hunnamab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:34:38 by hunnamab          #+#    #+#             */
-/*   Updated: 2020/03/06 13:57:40 by hunnamab         ###   ########.fr       */
+/*   Updated: 2020/03/06 19:20:15 by hunnamab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,6 @@ void	default_settings(t_cntrl *cntrl)
 	cntrl->max_re = 1.5;
 	cntrl->min_im = -1.7;
 	cntrl->max_im = cntrl->min_im + (cntrl->max_re - cntrl->min_re) * HEI / WID;
+	cntrl->k_im = 0.11301;
+	cntrl->k_re = -0.74543;
 }

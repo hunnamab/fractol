@@ -6,7 +6,7 @@
 /*   By: hunnamab <hunnamab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 14:49:49 by hunnamab          #+#    #+#             */
-/*   Updated: 2020/03/06 15:19:48 by hunnamab         ###   ########.fr       */
+/*   Updated: 2020/03/06 19:18:56 by hunnamab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 typedef struct		s_cntrl
 {
+	char			fr_name;
 	void			*mlx;
 	void			*win;
 	void			*img;
@@ -35,11 +36,12 @@ typedef struct		s_cntrl
 	int				bpp;
 	int				size_line;
 	int				endian;
-	char			fr_name;
 	double			min_re;
 	double 			max_re;
 	double 			min_im;
 	double 			max_im;
+	double			k_re;
+	double			k_im;
 }					t_cntrl;
 
 void				mandelbrot(t_cntrl *cntrl);
