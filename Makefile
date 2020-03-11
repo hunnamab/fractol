@@ -28,7 +28,7 @@ $(LIBRARY):
 		@make -C libft/
 
 $(NAME): $(LIBRARY) $(OBJ)
-		@gcc $(OBJ) $(LIBRARY) -o $(NAME) -I $(HEADER) -lmlx -framework OpenGL -framework AppKit -L.
+		@gcc $(OBJ) $(LIBRARY) -o $(NAME) -I $(HEADER) -lmlx -lX11 -lXext -lm -L.
 
 clean:
 	@rm -f $(OBJ)

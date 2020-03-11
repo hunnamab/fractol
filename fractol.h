@@ -20,15 +20,14 @@
 # include "mlx.h"
 # include "libft.h"
 
-# define WID	1500
-# define HEI	1500
+# define WID	800
+# define HEI	800
 
 # define NAVY	0x25869D
 # define BLACK  0x000000
 
 typedef struct		s_cntrl
 {
-	char			fr_name;
 	void			*mlx;
 	void			*win;
 	void			*img;
@@ -36,6 +35,7 @@ typedef struct		s_cntrl
 	int				bpp;
 	int				size_line;
 	int				endian;
+	char			fr_name;
 	double			min_re;
 	double 			max_re;
 	double 			min_im;
