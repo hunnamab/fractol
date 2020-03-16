@@ -6,7 +6,7 @@
 /*   By: hunnamab <hunnamab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 14:41:49 by hunnamab          #+#    #+#             */
-/*   Updated: 2020/03/13 17:49:49 by hunnamab         ###   ########.fr       */
+/*   Updated: 2020/03/16 16:57:34 by hunnamab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,10 @@
 
 void	img_changes(int key, t_cntrl *cntrl)
 {
-	if (key == 123 || key == 124 || key == 125 || key == 126 || \
-			key == 27 || key == 24 || key == 18 || key == 19 || key == 20)
+	if (key == 123 || key == 124 || key == 125 || key == 126)
+		move(key, &cntrl->min, &cntrl->max);
+	if (key == 27 || key == 24 || key == 18 || key == 19 || key == 20)
 	{
-		if (key == 123)
-		{
-			cntrl->min_re += 0.05;
-			cntrl->max_re += 0.05;
-		}
-		if (key == 126)
-		{
-			cntrl->min_im -= 0.05;
-			cntrl->max_im -= 0.05;
-		}
-		if (key == 124)
-		{
-			cntrl->min_re -= 0.05;
-			cntrl->max_re -= 0.05;
-		}
-		if (key == 125)
-		{
-			cntrl->min_im += 0.05;
-			cntrl->max_im += 0.05;
-		}
 		if (key == 27)
 			cntrl->iter -= 10;
 		if (key == 24)
@@ -77,18 +58,6 @@ int		key_control(int key, t_cntrl *cntrl)
 	return (0);
 }
 
-void	julia_changes(t_cntrl *cntrl)
-{
-	if (cntrl->pr_y < cntrl->cur_y)
-		cntrl->k_im += 0.0005;
-	else if (cntrl->pr_y > cntrl->cur_y)
-		cntrl->k_im -= 0.0005;
-	if (cntrl->pr_x < cntrl->cur_x)
-		cntrl->k_re += 0.0005;
-	else if (cntrl->pr_x > cntrl->cur_x)
-		cntrl->k_re -= 0.0005;
-}
-
 int		mouse_move(int x, int y, t_cntrl *cntrl)
 {
 	if (cntrl->fr_name == 'j')
@@ -103,29 +72,10 @@ int		mouse_move(int x, int y, t_cntrl *cntrl)
 		cntrl->data = (int *)mlx_get_data_addr(cntrl->img, \
 			&cntrl->bpp, &cntrl->size_line, &cntrl->endian);
 		julia_changes(cntrl);
-		if (cntrl->fr_name == 'j')
-			julia(cntrl);
+		julia(cntrl);
 		mlx_put_image_to_window(cntrl->mlx, cntrl->win, cntrl->img, 0, 0);
 	}
 	return (0);
-}
-
-void	scroll(int button, t_cntrl *cntrl)
-{
-	if (button == 5) // 4
-	{
-		cntrl->min_re *= 0.9;
-		cntrl->max_re *= 0.9;
-		cntrl->min_im *= 0.9;
-		cntrl->max_im *= 0.9;
-	}
-	if (button == 4) // 5
-	{
-		cntrl->min_re *= 1.1;
-		cntrl->max_re *= 1.1;
-		cntrl->min_im *= 1.1;
-		cntrl->max_im *= 1.1;
-	}
 }
 
 int		mouse_press(int button, int x, int y, t_cntrl *cntrl)
@@ -135,7 +85,7 @@ int		mouse_press(int button, int x, int y, t_cntrl *cntrl)
 	cntrl->img = mlx_new_image(cntrl->mlx, WID, HEI);
 	cntrl->data = (int *)mlx_get_data_addr(cntrl->img, \
 		&cntrl->bpp, &cntrl->size_line, &cntrl->endian);
-	scroll(button, cntrl);
+	scroll(button, cntrl, (x - (WID / 2)), (y - (WID / 2)));
 	if (cntrl->fr_name == 'm')
 		mandelbrot(cntrl);
 	if (cntrl->fr_name == 'j')

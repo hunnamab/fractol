@@ -6,7 +6,7 @@
 /*   By: hunnamab <hunnamab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 14:49:49 by hunnamab          #+#    #+#             */
-/*   Updated: 2020/03/13 18:30:54 by hunnamab         ###   ########.fr       */
+/*   Updated: 2020/03/16 16:58:00 by hunnamab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@
 # define WID	1500
 # define HEI	1500
 
-# define NAVY	0x25869D
-# define BLACK  0x000000
+typedef	struct		s_cmplx
+{
+	double			re;
+	double			im;
+}					t_cmplx;
 
 typedef struct		s_cntrl
 {
@@ -38,25 +41,28 @@ typedef struct		s_cntrl
 	char			fr_name;
 	int				iter;
 	int				color;
-	double			min_re;
-	double 			max_re;
-	double 			min_im;
-	double 			max_im;
-	double			k_re;
-	double			k_im;
 	int				pr_x;
 	int				pr_y;
 	int				cur_x;
 	int				cur_y;
-
+	double			zoom;
+	t_cmplx			min;
+	t_cmplx			max;
+	t_cmplx			k;
+	t_cmplx			z;
+	t_cmplx			pos;
 }					t_cntrl;
 
 void				error_handling(int i);
+t_cmplx				set_complex(double re, double im);
 void				mandelbrot(t_cntrl *cntrl);
 void				julia(t_cntrl *cntrl);
 void				burning_ship(t_cntrl *cntrl);
 int					colors(int i, int iter, int color);
 void				default_settings(t_cntrl *cntrl);
 int					key_mouse_control(t_cntrl *cntrl);
+void				julia_changes(t_cntrl *cntrl);
+void				scroll(int button, t_cntrl *cntrl, double x, double y);
+void    			move(int key, t_cmplx *min, t_cmplx *max);
 
 #endif

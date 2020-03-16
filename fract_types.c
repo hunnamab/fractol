@@ -6,7 +6,7 @@
 /*   By: hunnamab <hunnamab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:01:47 by hunnamab          #+#    #+#             */
-/*   Updated: 2020/03/13 17:46:45 by hunnamab         ###   ########.fr       */
+/*   Updated: 2020/03/16 17:17:51 by hunnamab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,148 +14,144 @@
 
 double  fact_im(t_cntrl *cntrl)
 {
-	return ((cntrl->max_im - cntrl->min_im) / (HEI - 1));
+	return ((cntrl->max.im - cntrl->min.im) / (HEI));
 }
 
 double  fact_re(t_cntrl *cntrl)
 {
-    return ((cntrl->max_re - cntrl->min_re) / (WID - 1));
+    return ((cntrl->max.re - cntrl->min.re) / (WID));
 }
 
 void	burning_ship(t_cntrl *cntrl)
 {
-	int i = 0;
-	int x = 0;
-	int y = 0;
+	int i;
+	int x;
+	int y;
 	//re = x axis, im = y axis
 
 	double c_re;
 	double c_im;
 
-	double Z_re;
-	double Z_im;
 	double Z_re2;
 	double Z_im2;
 
+	y = 0;
+	cntrl->min.re = (cntrl->min.re / cntrl->zoom) + cntrl->pos.re;
+	cntrl->max.re = (cntrl->max.re / cntrl->zoom) + cntrl->pos.re;
+	cntrl->min.im = (cntrl->min.im / cntrl->zoom) + cntrl->pos.im;
+	cntrl->max.im = (cntrl->max.im / cntrl->zoom) + cntrl->pos.im;
 	while (y < HEI)
 	{
-		c_im = cntrl->max_im - y * fact_im(cntrl);
+		c_im = cntrl->max.im - y * fact_im(cntrl);
+		x = 0;
 		while (x < WID)
 		{
-			c_re = cntrl->min_re + x * fact_re(cntrl);
+			c_re = cntrl->min.re + x * fact_re(cntrl);
 
-			Z_re = c_re;
-			Z_im = c_im;
+			cntrl->z = set_complex(cntrl->min.re + x * fact_re(cntrl), \
+				cntrl->max.im - y * fact_im(cntrl));
 
-			int is_inside = 1;
+			i = 0;
 			while (i < cntrl->iter)
 			{
-				Z_re2 = Z_re * Z_re;
-				Z_im2 = Z_im * Z_im;
+				Z_re2 = cntrl->z.re * cntrl->z.re;
+				Z_im2 = cntrl->z.im * cntrl->z.im;
 				if (Z_re2 + Z_im2 > 4)
-				{
-					is_inside = 0;
 					break ;
-				}
-				Z_im = 2 * fabs(Z_re * Z_im) - c_im;
-				Z_re = Z_re2 - Z_im2 + c_re;
+				cntrl->z.im = 2 * fabs(cntrl->z.re * cntrl->z.im) - c_im;
+				cntrl->z.re = Z_re2 - Z_im2 + c_re;
 				i++;
 			}
 			cntrl->data[y * WID + x] = colors(i, cntrl->iter, cntrl->color);
 			x++;
-			i = 0;
 		}
-		x = 0;
 		y++;
 	}
 }
 
 void	julia(t_cntrl *cntrl)
 {
-	int i = 0;
-	int x = 0;
-	int y = 0;
-	//re = x axis, im = y axis
+	int i;
+	int x;
+	int y;
 
-	double Z_re;
-	double Z_im;
 	double Z_re2;
 	double Z_im2;
 
+	y = 0;
+	cntrl->min.re = (cntrl->min.re / cntrl->zoom) + cntrl->pos.re;
+	cntrl->max.re = (cntrl->max.re / cntrl->zoom) + cntrl->pos.re;
+	cntrl->min.im = (cntrl->min.im / cntrl->zoom) + cntrl->pos.im;
+	cntrl->max.im = (cntrl->max.im / cntrl->zoom) + cntrl->pos.im;
 	while (y < HEI)
 	{
+		x = 0;
 		while (x < WID)
 		{
-			Z_im = cntrl->max_im - y * fact_im(cntrl);
-			Z_re = cntrl->min_re + x * fact_re(cntrl);
+			cntrl->z = set_complex(cntrl->min.re + x * fact_re(cntrl), \
+				cntrl->max.im - y * fact_im(cntrl));
 
-			int is_inside = 1;
+			i = 0;
 			while (i < cntrl->iter)
 			{
-				Z_re2 = Z_re * Z_re;
-				Z_im2 = Z_im * Z_im;
+				Z_re2 = cntrl->z.re * cntrl->z.re;
+				Z_im2 = cntrl->z.im * cntrl->z.im;
 				if (Z_re2 + Z_im2 > 4)
-				{
-					is_inside = 0;
 					break ;
-				}
-				Z_im = 2 * Z_re * Z_im + (cntrl->k_im);
-				Z_re = Z_re2 - Z_im2 + (cntrl->k_re);
+				cntrl->z.im = 2 * cntrl->z.re * cntrl->z.im + (cntrl->k.im);
+				cntrl->z.re = Z_re2 - Z_im2 + (cntrl->k.re);
 				i++;
 			}
 			cntrl->data[y * WID + x] = colors(i, cntrl->iter, cntrl->color);
 			x++;
-			i = 0;
 		}
-		x = 0;
 		y++;
 	}
 }
 
 void	mandelbrot(t_cntrl *cntrl)
 {
-	int i = 0;
-	int x = 0;
-	int y = 0;
+	int i;
+	int x;
+	int y;
 	//re = x axis, im = y axis
 
 	double c_re;
 	double c_im;
 
-	double Z_re;
-	double Z_im;
 	double Z_re2;
 	double Z_im2;
 
+	y = 0;
+	
 	while (y < HEI)
 	{
-		c_im = cntrl->max_im - y * fact_im(cntrl);
+		c_im = cntrl->max.im - y * fact_im(cntrl);
+		x = 0;
 		while (x < WID)
 		{
-			c_re = cntrl->min_re + x * fact_re(cntrl);
+			/*cntrl->min.re = (cntrl->min.re / cntrl->zoom) + cntrl->pos.re;
+			cntrl->max.re = (cntrl->max.re / cntrl->zoom) + cntrl->pos.re;
+			cntrl->min.im = (cntrl->min.im / cntrl->zoom) + cntrl->pos.im;
+			cntrl->max.im = (cntrl->max.im / cntrl->zoom) + cntrl->pos.im;*/
+			c_re = cntrl->min.re + x * fact_re(cntrl);
+			
+			cntrl->z = set_complex(c_re, c_im);
 
-			Z_re = c_re;
-			Z_im = c_im;
-
-			int is_inside = 1;
+			i = 0;
 			while (i < cntrl->iter)
 			{
-				Z_re2 = Z_re * Z_re;
-				Z_im2 = Z_im * Z_im;
+				Z_re2 = cntrl->z.re * cntrl->z.re;
+				Z_im2 = cntrl->z.im * cntrl->z.im;
 				if (Z_re2 + Z_im2 > 4)
-				{
-					is_inside = 0;
 					break ;
-				}
-				Z_im = 2 * Z_re * Z_im + c_im;
-				Z_re = Z_re2 - Z_im2 + c_re;
+				cntrl->z.im = 2 * cntrl->z.re * cntrl->z.im + c_im;
+				cntrl->z.re = Z_re2 - Z_im2 + c_re;
 				i++;
 			}
 			cntrl->data[y * WID + x] = colors(i, cntrl->iter, cntrl->color);
 			x++;
-			i = 0;
 		}
-		x = 0;
 		y++;
 	}
 }
