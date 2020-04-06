@@ -15,7 +15,7 @@
 void	img_changes(int key, t_cntrl *cntrl)
 {
 	if (key == 123 || key == 124 || key == 125 || key == 126)
-		move(key, &cntrl->min, &cntrl->max);
+		move(key, &cntrl->pos);
 	if (key == 27 || key == 24 || key == 18 || key == 19 || key == 20)
 	{
 		if (key == 27)
@@ -33,13 +33,13 @@ void	img_changes(int key, t_cntrl *cntrl)
 
 int		key_control(int key, t_cntrl *cntrl)
 {
-	if (key == 53) //53 or 0xff1b
+	if (key == 53)
 	{
 		mlx_destroy_window(cntrl->mlx, cntrl->win);
 		exit(EXIT_SUCCESS);
 	}
 	if (key == 123 || key == 124 || key == 125 || key == 126 || \
-			key == 27 || key == 24 || key == 18 || key == 19 || key == 20) // key == 0xff51 || key == 0xff52 || key == 0xff53 || key == 0xff54
+			key == 27 || key == 24 || key == 18 || key == 19 || key == 20)
 	{
 		if (cntrl->img)
 			mlx_destroy_image(cntrl->mlx, cntrl->img);
@@ -85,7 +85,7 @@ int		mouse_press(int button, int x, int y, t_cntrl *cntrl)
 	cntrl->img = mlx_new_image(cntrl->mlx, WID, HEI);
 	cntrl->data = (int *)mlx_get_data_addr(cntrl->img, \
 		&cntrl->bpp, &cntrl->size_line, &cntrl->endian);
-	scroll(button, cntrl, (x - (WID / 2)), (y - (WID / 2)));
+	scroll(button, cntrl, x, y);
 	if (cntrl->fr_name == 'm')
 		mandelbrot(cntrl);
 	if (cntrl->fr_name == 'j')

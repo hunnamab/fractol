@@ -17,11 +17,11 @@
 # include <math.h>
 # include <fcntl.h>
 # include <stdint.h>
-# include "mlx.h"
+# include "minilibx_macos/mlx.h"
 # include "libft.h"
 
-# define WID	1500
-# define HEI	1500
+# define WID	800
+# define HEI	800
 
 typedef	struct		s_cmplx
 {
@@ -63,6 +63,6 @@ void				default_settings(t_cntrl *cntrl);
 int					key_mouse_control(t_cntrl *cntrl);
 void				julia_changes(t_cntrl *cntrl);
 void				scroll(int button, t_cntrl *cntrl, double x, double y);
-void    			move(int key, t_cmplx *min, t_cmplx *max);
+void    			move(int key, t_cmplx *pos);
 
 #endif

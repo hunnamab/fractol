@@ -12,41 +12,35 @@
 
 #include "fractol.h"
 
-void    move(int key, t_cmplx *min, t_cmplx *max)
+void    move(int key, t_cmplx *pos)
 {
     if (key == 123)
-	{
-		min->re += 0.05;
-		max->re += 0.05;
-	}
+		pos->re -= 50;
 	if (key == 126)
-	{
-		min->im -= 0.05;
-		max->im -= 0.05;
-	}
+		pos->im -= 50;
 	if (key == 124)
-	{
-		min->re -= 0.05;
-		max->re -= 0.05;
-	}
+		pos->re += 50;
 	if (key == 125)
-	{
-		min->im += 0.05;
-		max->im += 0.05;
-	}
+		pos->im += 50;
 }
 
 void	scroll(int button, t_cntrl *cntrl, double x, double y)
 {
-	if (button == 5) // 4
+	double scale = 0;
+
+	if ((button == 5 || button == 4 || button == 1 || button == 2) && \
+			(x >= 0 && x < WID && y >= 0 && y < HEI))
 	{
-		cntrl->zoom *= 0.9;
-		cntrl->pos.re += (x / (WID / 2)) / cntrl->zoom;
-	}
-	if (button == 4) // 5
-	{
-		cntrl->zoom *= 1.1;
-		cntrl->pos.im += (y / (HEI / 2)) / cntrl->zoom;
+		if (button == 5 || button == 2)
+			scale = 0.9;
+		if (button == 4 || button == 1)
+			scale = 1.1;
+		if (button == 1 || button == 2)
+		{
+			cntrl->pos.re = round(cntrl->pos.re + ((WID >> 1) - x) * scale);
+			cntrl->pos.im = round(cntrl->pos.im + ((HEI >> 1) - y) * scale);
+		}
+		cntrl->zoom *= scale;
 	}
 }
 
