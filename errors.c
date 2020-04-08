@@ -17,7 +17,7 @@ void	error_handling(int i)
 	if (i == 0)
 		ft_putstr("usage: ./fractol [fractal_name]\n\n");
 	if (i == 1)
-		ft_putstr("Oops! Wrong fractal name! :(\n\n");
+		ft_putstr("Oops! Wrong fractal name, try again! :(\n\n");
 	ft_putstr("available fractals:");
 	ft_putstr("\t[mandelbrot]\n\t\t\t[julia]\n\t\t\t[burning_ship]\n");
 	exit (EXIT_SUCCESS);

@@ -41,10 +41,6 @@ typedef struct		s_cntrl
 	char			fr_name;
 	int				iter;
 	int				color;
-	int				pr_x;
-	int				pr_y;
-	int				cur_x;
-	int				cur_y;
 	double			zoom;
 	t_cmplx			min;
 	t_cmplx			max;
@@ -61,7 +57,7 @@ void				burning_ship(t_cntrl *cntrl);
 int					colors(int i, int iter, int color);
 void				default_settings(t_cntrl *cntrl);
 int					key_mouse_control(t_cntrl *cntrl);
-void				julia_changes(t_cntrl *cntrl);
+void				julia_changes(t_cntrl *cntrl, int x, int y);
 void				scroll(int button, t_cntrl *cntrl, double x, double y);
 void    			move(int key, t_cmplx *pos);
 

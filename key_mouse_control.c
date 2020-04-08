@@ -62,16 +62,12 @@ int		mouse_move(int x, int y, t_cntrl *cntrl)
 {
 	if (cntrl->fr_name == 'j')
 	{
-		cntrl->pr_x = cntrl->cur_x;
-		cntrl->pr_y = cntrl->cur_y;
-		cntrl->cur_x = x;
-		cntrl->cur_y = y;
 		if (cntrl->img)
 			mlx_destroy_image(cntrl->mlx, cntrl->img);
 		cntrl->img = mlx_new_image(cntrl->mlx, WID, HEI);
 		cntrl->data = (int *)mlx_get_data_addr(cntrl->img, \
 			&cntrl->bpp, &cntrl->size_line, &cntrl->endian);
-		julia_changes(cntrl);
+		julia_changes(cntrl, x, y);
 		julia(cntrl);
 		mlx_put_image_to_window(cntrl->mlx, cntrl->win, cntrl->img, 0, 0);
 	}

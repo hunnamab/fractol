@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-//http://warp.povusers.org/Mandelbrot/
-//https://solarianprogrammer.com/2013/02/28/mandelbrot-set-cpp-11/
-//https://ee-programming-notepad.blogspot.com/2016/10/16-bit-color-generator-picker.html
 
 int		define_fractal(char *name, t_cntrl *cntrl)
 {

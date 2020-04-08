@@ -15,9 +15,9 @@
 void    move(int key, t_cmplx *pos)
 {
     if (key == 123)
-		pos->re -= 50;
+		pos->re += -50;
 	if (key == 126)
-		pos->im -= 50;
+		pos->im += -50;
 	if (key == 124)
 		pos->re += 50;
 	if (key == 125)
@@ -26,8 +26,9 @@ void    move(int key, t_cmplx *pos)
 
 void	scroll(int button, t_cntrl *cntrl, double x, double y)
 {
-	double scale = 0;
+	double scale;
 
+	scale = 0;
 	if ((button == 5 || button == 4 || button == 1 || button == 2) && \
 			(x >= 0 && x < WID && y >= 0 && y < HEI))
 	{
@@ -44,14 +45,11 @@ void	scroll(int button, t_cntrl *cntrl, double x, double y)
 	}
 }
 
-void	julia_changes(t_cntrl *cntrl)
+void	julia_changes(t_cntrl *cntrl, int x, int y)
 {
-	if (cntrl->pr_y < cntrl->cur_y)
-		cntrl->k.im += 0.0005;
-	else if (cntrl->pr_y > cntrl->cur_y)
-		cntrl->k.im -= 0.0005;
-	if (cntrl->pr_x < cntrl->cur_x)
-		cntrl->k.re += 0.0005;
-	else if (cntrl->pr_x > cntrl->cur_x)
-		cntrl->k.re -= 0.0005;
+	if (x > 0 && x < WID && y > 0 && y < HEI)
+	{
+		cntrl->k.re = (x + cntrl->pos.re) / cntrl->zoom + cntrl->min.re;
+		cntrl->k.im = (y + cntrl->pos.im) / cntrl->zoom + cntrl->min.im;
+	}
 }
