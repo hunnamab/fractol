@@ -39,6 +39,7 @@ typedef struct		s_cntrl
 	int				size_line;
 	int				endian;
 	char			fr_name;
+	int				j_move;
 	int				iter;
 	int				color;
 	double			zoom;

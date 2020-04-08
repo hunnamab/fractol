@@ -38,6 +38,8 @@ int		key_control(int key, t_cntrl *cntrl)
 		mlx_destroy_window(cntrl->mlx, cntrl->win);
 		exit(EXIT_SUCCESS);
 	}
+	if (key == 257 || key == 258)
+		cntrl->j_move = (!cntrl->j_move) ? 1 : 0;
 	if (key == 123 || key == 124 || key == 125 || key == 126 || \
 			key == 27 || key == 24 || key == 18 || key == 19 || key == 20)
 	{

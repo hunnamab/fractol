@@ -76,15 +76,19 @@ void	julia(t_cntrl *cntrl)
 	double z_imb;
 
 	y = 0;
+	
 	cntrl->min.re = ((cntrl->pos.re + (WID >> 1)) / (cntrl->zoom / 2)) / -2;
 	cntrl->min.im = ((cntrl->pos.im + (HEI >> 1)) / (cntrl->zoom / 2)) / -2;
+	//cntrl->max.im = cntrl->min.im + (cntrl->max.re - cntrl->min.re) * HEI / WID;
 	while (y < HEI)
 	{
 		x = 0;
 		while (x < WID)
 		{
-			cntrl->z = set_complex(cntrl->min.re + x * fact_re(cntrl), \
-				cntrl->max.im - y * fact_im(cntrl));
+			//cntrl->z = set_complex(cntrl->min.re + x * fact_re(cntrl), \
+			//	cntrl->max.im - y * fact_im(cntrl));
+			cntrl->z.im = 0;
+			cntrl->z.re = 0;
 
 			i = 0;
 			while (i < cntrl->iter)
@@ -127,7 +131,8 @@ void	mandelbrot(t_cntrl *cntrl)
 			c_re = x / cntrl->zoom + cntrl->min.re;
 			c_im = y / cntrl->zoom + cntrl->min.im;
 
-			cntrl->z = set_complex(c_re, c_im);
+			cntrl->z.im = 0;
+			cntrl->z.re = 0;
 
 			i = 0;
 			while (i < cntrl->iter)

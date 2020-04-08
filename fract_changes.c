@@ -47,7 +47,7 @@ void	scroll(int button, t_cntrl *cntrl, double x, double y)
 
 void	julia_changes(t_cntrl *cntrl, int x, int y)
 {
-	if (x > 0 && x < WID && y > 0 && y < HEI)
+	if (x > 0 && x < WID && y > 0 && y < HEI && !cntrl->j_move)
 	{
 		cntrl->k.re = (x + cntrl->pos.re) / cntrl->zoom + cntrl->min.re;
 		cntrl->k.im = (y + cntrl->pos.im) / cntrl->zoom + cntrl->min.im;

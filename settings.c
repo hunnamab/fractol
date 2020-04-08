@@ -30,9 +30,24 @@ void	default_settings(t_cntrl *cntrl)
 		&cntrl->size_line, &cntrl->endian);
 	cntrl->iter = 100;
 	cntrl->color = 0;
-	cntrl->zoom = 280;
-	cntrl->pos.re = 0.0;
-	cntrl->pos.im = 0.0;
+	if (cntrl->fr_name == 'm')
+	{
+		cntrl->zoom = 280;
+		cntrl->pos.re = 160.0;
+		cntrl->pos.im = 0.0;
+	}
+	if (cntrl->fr_name == 'j')
+	{
+		cntrl->zoom = 200;
+		cntrl->pos.re = 0.0;
+		cntrl->pos.im = 0.0;
+	}
+	if (cntrl->fr_name == 'b')
+	{
+		cntrl->zoom = 240;
+		cntrl->pos.re = 100.0;
+		cntrl->pos.im = 100.0;
+	}
 	cntrl->min.re = -2.0;
 	cntrl->min.im = -2.0;
 	cntrl->max.re = 2.0;
