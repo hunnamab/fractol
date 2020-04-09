@@ -40,6 +40,8 @@ int		key_control(int key, t_cntrl *cntrl)
 	}
 	if (key == 257 || key == 258)
 		cntrl->j_move = (!cntrl->j_move) ? 1 : 0;
+	if (key == 48)
+		menu_onoff(cntrl);
 	if (key == 123 || key == 124 || key == 125 || key == 126 || \
 			key == 27 || key == 24 || key == 18 || key == 19 || key == 20)
 	{
@@ -49,13 +51,10 @@ int		key_control(int key, t_cntrl *cntrl)
 		cntrl->data = (int *)mlx_get_data_addr(cntrl->img, \
 			&cntrl->bpp, &cntrl->size_line, &cntrl->endian);
 		img_changes(key, cntrl);
-		if (cntrl->fr_name == 'm')
-			mandelbrot(cntrl);
-		if (cntrl->fr_name == 'j')
-			julia(cntrl);
-		if (cntrl->fr_name == 'b')
-			burning_ship(cntrl);
+		draw_fractal(cntrl);
 		mlx_put_image_to_window(cntrl->mlx, cntrl->win, cntrl->img, 0, 0);
+		if (cntrl->menu)
+			show_menu(cntrl);
 	}
 	return (0);
 }
@@ -70,8 +69,11 @@ int		mouse_move(int x, int y, t_cntrl *cntrl)
 		cntrl->data = (int *)mlx_get_data_addr(cntrl->img, \
 			&cntrl->bpp, &cntrl->size_line, &cntrl->endian);
 		julia_changes(cntrl, x, y);
+		set_minimum(cntrl);
 		julia(cntrl);
 		mlx_put_image_to_window(cntrl->mlx, cntrl->win, cntrl->img, 0, 0);
+		if (cntrl->menu)
+			show_menu(cntrl);
 	}
 	return (0);
 }
@@ -84,13 +86,10 @@ int		mouse_press(int button, int x, int y, t_cntrl *cntrl)
 	cntrl->data = (int *)mlx_get_data_addr(cntrl->img, \
 		&cntrl->bpp, &cntrl->size_line, &cntrl->endian);
 	scroll(button, cntrl, x, y);
-	if (cntrl->fr_name == 'm')
-		mandelbrot(cntrl);
-	if (cntrl->fr_name == 'j')
-		julia(cntrl);
-	if (cntrl->fr_name == 'b')
-		burning_ship(cntrl);
+	draw_fractal(cntrl);
 	mlx_put_image_to_window(cntrl->mlx, cntrl->win, cntrl->img, 0, 0);
+	if (cntrl->menu)
+		show_menu(cntrl);
 	return (0);
 }
 

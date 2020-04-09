@@ -12,13 +12,48 @@
 
 #include "fractol.h"
 
-t_cmplx	set_complex(double re, double im)
+void	set_re_im(t_cntrl *cntrl, int x, int y)
 {
-	t_cmplx complex;
-	
-	complex.re = re;
-	complex.im = im;
-	return (complex);
+	if (cntrl->fr_name == 'm' || cntrl->fr_name == 'b')
+	{
+		cntrl->c.re = x / cntrl->zoom + cntrl->min.re;
+		cntrl->c.im = y / cntrl->zoom + cntrl->min.im;
+		cntrl->z.im = 0;
+		cntrl->z.re = 0;
+	}
+	if (cntrl->fr_name == 'j')
+	{
+		cntrl->z.im = y / cntrl->zoom + cntrl->min.im;
+		cntrl->z.re = x / cntrl->zoom + cntrl->min.re;
+	}
+}
+
+void	set_minimum(t_cntrl *cntrl)
+{
+	cntrl->min.re = ((cntrl->pos.re + (WID >> 1)) / (cntrl->zoom / 2)) / -2;
+	cntrl->min.im = ((cntrl->pos.im + (HEI >> 1)) / (cntrl->zoom / 2)) / -2;
+}
+
+void	fractals_settings(t_cntrl *cntrl)
+{
+	if (cntrl->fr_name == 'm')
+	{
+		cntrl->zoom = 280;
+		cntrl->pos.re = 160.0;
+		cntrl->pos.im = 0.0;
+	}
+	if (cntrl->fr_name == 'j')
+	{
+		cntrl->zoom = 240;
+		cntrl->pos.re = 0.0;
+		cntrl->pos.im = 0.0;
+	}
+	if (cntrl->fr_name == 'b')
+	{
+		cntrl->zoom = 240;
+		cntrl->pos.re = 100.0;
+		cntrl->pos.im = 100.0;
+	}
 }
 
 void	default_settings(t_cntrl *cntrl)
@@ -30,27 +65,8 @@ void	default_settings(t_cntrl *cntrl)
 		&cntrl->size_line, &cntrl->endian);
 	cntrl->iter = 100;
 	cntrl->color = 0;
-	if (cntrl->fr_name == 'm')
-	{
-		cntrl->zoom = 280;
-		cntrl->pos.re = 160.0;
-		cntrl->pos.im = 0.0;
-	}
-	if (cntrl->fr_name == 'j')
-	{
-		cntrl->zoom = 200;
-		cntrl->pos.re = 0.0;
-		cntrl->pos.im = 0.0;
-	}
-	if (cntrl->fr_name == 'b')
-	{
-		cntrl->zoom = 240;
-		cntrl->pos.re = 100.0;
-		cntrl->pos.im = 100.0;
-	}
-	cntrl->min.re = -2.0;
-	cntrl->min.im = -2.0;
-	cntrl->max.re = 2.0;
-	cntrl->max.im = cntrl->min.im + (cntrl->max.re - cntrl->min.re) * HEI / WID;
-	cntrl->k = set_complex(-0.74543, 0.11301);
+	cntrl->menu = 1;
+	fractals_settings(cntrl);
+	cntrl->k.re = -0.74543;
+	cntrl->k.im = 0.11301;
 }

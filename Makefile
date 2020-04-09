@@ -17,7 +17,7 @@ FLAGS = -Wall -Wextra
 LIBRARY = libft/libft.a
 HEADER = fractol.h
 SRC = fractol.c settings.c key_mouse_control.c fract_types.c colors.c errors.c \
-		fract_changes.c
+		fract_changes.c menu.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

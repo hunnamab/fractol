@@ -15,25 +15,15 @@
 int		define_fractal(char *name, t_cntrl *cntrl)
 {
 	if (ft_strcmp(name, "mandelbrot") == 0)
-	{
 		cntrl->fr_name = 'm';
-		default_settings(cntrl);
-		mandelbrot(cntrl);
-	}
 	else if (ft_strcmp(name, "julia") == 0)
-	{
 		cntrl->fr_name = 'j';
-		default_settings(cntrl);
-		julia(cntrl);
-	}
 	else if (ft_strcmp(name, "burning_ship") == 0)
-	{
 		cntrl->fr_name = 'b';
-		default_settings(cntrl);
-		burning_ship(cntrl);
-	}
 	else
 		return (0);
+	default_settings(cntrl);
+	draw_fractal(cntrl);
 	return (1);
 }
 
@@ -48,6 +38,8 @@ int		main(int argc, char **argv)
 	if (!(define_fractal(argv[1], cntrl)))
 		error_handling(1);
 	mlx_put_image_to_window(cntrl->mlx, cntrl->win, cntrl->img, 0, 0);
+	if (cntrl->menu)
+		show_menu(cntrl);
 	key_mouse_control(cntrl);
 	mlx_loop(cntrl->mlx);
 	return (0);
