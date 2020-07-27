@@ -6,13 +6,13 @@
 /*   By: hunnamab <hunnamab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 14:47:02 by hunnamab          #+#    #+#             */
-/*   Updated: 2020/03/16 14:13:49 by hunnamab         ###   ########.fr       */
+/*   Updated: 2020/07/27 18:01:29 by hunnamab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int		define_fractal(char *name, t_cntrl *cntrl)
+static	int	define_fractal(char *name, t_cntrl *cntrl)
 {
 	if (ft_strcmp(name, "mandelbrot") == 0)
 		cntrl->fr_name = 'm';
@@ -20,6 +20,8 @@ int		define_fractal(char *name, t_cntrl *cntrl)
 		cntrl->fr_name = 'j';
 	else if (ft_strcmp(name, "burning_ship") == 0)
 		cntrl->fr_name = 'b';
+	else if (ft_strcmp(name, "flowerbrot") == 0)
+		cntrl->fr_name = 'f';
 	else
 		return (0);
 	default_settings(cntrl);
@@ -27,7 +29,7 @@ int		define_fractal(char *name, t_cntrl *cntrl)
 	return (1);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_cntrl	*cntrl;
 

@@ -6,7 +6,7 @@
 /*   By: hunnamab <hunnamab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 14:49:49 by hunnamab          #+#    #+#             */
-/*   Updated: 2020/03/16 16:58:00 by hunnamab         ###   ########.fr       */
+/*   Updated: 2020/07/27 18:04:54 by hunnamab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct		s_cntrl
 	t_cmplx			z;
 	t_cmplx			c;
 	t_cmplx			pos;
+	t_cmplx			zbuf;
 }					t_cntrl;
 
 void				error_handling(int i);
@@ -59,6 +60,7 @@ void				draw_fractal(t_cntrl *cntrl);
 void				set_minimum(t_cntrl *cntrl);
 void				set_re_im(t_cntrl *cntrl, int x, int y);
 void				mandelbrot(t_cntrl *cntrl);
+void				flowerbrot(t_cntrl *cntrl);
 void				julia(t_cntrl *cntrl);
 void				burning_ship(t_cntrl *cntrl);
 int					colors(int i, int iter, int color);
@@ -66,8 +68,9 @@ void				default_settings(t_cntrl *cntrl);
 int					key_mouse_control(t_cntrl *cntrl);
 void				julia_changes(t_cntrl *cntrl, int x, int y);
 void				scroll(int button, t_cntrl *cntrl, double x, double y);
-void    			move(int key, t_cmplx *pos);
+void				move(int key, t_cmplx *pos);
 void				menu_onoff(t_cntrl *cntrl);
 void				show_menu(t_cntrl *cntrl);
+void				set_flowerbrot(t_cntrl *cntrl);
 
 #endif

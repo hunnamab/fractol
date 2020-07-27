@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-void	img_changes(int key, t_cntrl *cntrl)
+static void	img_changes(int key, t_cntrl *cntrl)
 {
 	if (key == 123 || key == 124 || key == 125 || key == 126)
 		move(key, &cntrl->pos);
@@ -31,7 +31,7 @@ void	img_changes(int key, t_cntrl *cntrl)
 	}
 }
 
-int		key_control(int key, t_cntrl *cntrl)
+static int	key_control(int key, t_cntrl *cntrl)
 {
 	if (key == 53)
 	{
@@ -59,7 +59,7 @@ int		key_control(int key, t_cntrl *cntrl)
 	return (0);
 }
 
-int		mouse_move(int x, int y, t_cntrl *cntrl)
+static int	mouse_move(int x, int y, t_cntrl *cntrl)
 {
 	if (cntrl->fr_name == 'j')
 	{
@@ -78,7 +78,7 @@ int		mouse_move(int x, int y, t_cntrl *cntrl)
 	return (0);
 }
 
-int		mouse_press(int button, int x, int y, t_cntrl *cntrl)
+static int	mouse_press(int button, int x, int y, t_cntrl *cntrl)
 {
 	if (cntrl->img)
 		mlx_destroy_image(cntrl->mlx, cntrl->img);
@@ -93,7 +93,7 @@ int		mouse_press(int button, int x, int y, t_cntrl *cntrl)
 	return (0);
 }
 
-int		key_mouse_control(t_cntrl *cntrl)
+int			key_mouse_control(t_cntrl *cntrl)
 {
 	mlx_hook(cntrl->win, 2, (1L << 0), key_control, cntrl);
 	mlx_hook(cntrl->win, 6, (1L << 6), mouse_move, cntrl);

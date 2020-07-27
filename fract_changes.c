@@ -12,9 +12,9 @@
 
 #include "fractol.h"
 
-void    move(int key, t_cmplx *pos)
+void	move(int key, t_cmplx *pos)
 {
-    if (key == 123)
+	if (key == 123)
 		pos->re += -50;
 	if (key == 126)
 		pos->im += -50;
@@ -38,8 +38,8 @@ void	scroll(int button, t_cntrl *cntrl, double x, double y)
 			scale = 1.1;
 		if (button == 1 || button == 2)
 		{
-			cntrl->pos.re = round(cntrl->pos.re + ((WID >> 1) - x) * scale);
-			cntrl->pos.im = round(cntrl->pos.im + ((HEI >> 1) - y) * scale);
+			cntrl->pos.re = round((cntrl->pos.re + ((WID >> 1) - x)) * scale);
+			cntrl->pos.im = round((cntrl->pos.im + ((HEI >> 1) - y)) * scale);
 		}
 		cntrl->zoom *= scale;
 	}
